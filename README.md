@@ -50,8 +50,6 @@ int main()
 	return 0; 
 }
 ~~~
-
-
 reader.c
 ~~~
 // C Program for Message Queue (Reader Process)
@@ -84,9 +82,6 @@ int main()
 	return 0;
 }
 ~~~
-
-
-
 ## OUTPUT
 
 ![Screenshot 2024-09-27 152411](https://github.com/user-attachments/assets/468b8ae4-e7a4-47c6-94f8-240ca4cc8112)
