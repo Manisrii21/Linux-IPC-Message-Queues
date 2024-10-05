@@ -7,22 +7,15 @@ To write a C program that receives a message from message queue and display them
 # DESIGN STEPS:
 
 ### Step 1:
-
 Navigate to any Linux environment installed on the system or installed inside a virtual environment like virtual box/vmware or online linux JSLinux (https://bellard.org/jslinux/vm.html?url=alpine-x86.cfg&mem=192) or docker.
-
 ### Step 2:
-
 Write the C Program using Linux message queues API 
-
 ### Step 3:
-
 Execute the C Program for the desired output. 
 
 # PROGRAM:
-
 ## C program that receives a message from message queue and display them
 ### READER C
-
 ```
 // C Program for Message Queue (Reader Process)
 #include <stdio.h>
@@ -53,7 +46,6 @@ return 0;
 ```
 
 ### WRITER C
-
 ```
 // C Program for Message Queue (Writer Process) 
 #include <stdio.h>
@@ -83,13 +75,9 @@ printf("Data send is : %s \n", message.mesg_text);
 return 0;
 }
 ```
-
-
 ## OUTPUT
 
 ![Screenshot 2024-10-01 085516](https://github.com/user-attachments/assets/c6c92cf9-f58b-4054-887e-5bcb1109d6b4)
-
-
 
 # RESULT:
 The programs are executed successfully.
