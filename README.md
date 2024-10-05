@@ -21,71 +21,73 @@ Execute the C Program for the desired output.
 # PROGRAM:
 
 ## C program that receives a message from message queue and display them
-writer.c
-~~~
-#include <stdio.h> 
-#include <sys/ipc.h> 
-#include <sys/msg.h> 
+### READER C
 
-// structure for message queue 
-struct mesg_buffer { 
-	long mesg_type; 
-	char mesg_text[100]; 
-} message; 
-int main() 
-{ 	key_t key; 
-	int msgid; 
-// ftok to generate unique key 
-	key = ftok("progfile", 65); 
-	// msgget creates a message queue 
-	// and returns identifier 
-	msgid = msgget(key, 0666 | IPC_CREAT); 
-	message.mesg_type = 1; 
-	printf("Write Data : "); 
-	fgets(message.mesg_text, sizeof(message.mesg_text), stdin); 
-	// msgsnd to send message 
-	msgsnd(msgid, &message, sizeof(message), 0); 
-	// display the message 
-	printf("Data send is : %s \n", message.mesg_text); 
-	return 0; 
-}
-~~~
-reader.c
-~~~
+```
 // C Program for Message Queue (Reader Process)
 #include <stdio.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
-
 // structure for message queue
 struct mesg_buffer {
-	long mesg_type;
-	char mesg_text[100];
+long mesg_type;
+char mesg_text[100];
 } message;
 int main()
 {
-	key_t key;
-	int msgid;
+key_t key;
+int msgid;
 // ftok to generate unique key
-	key = ftok("progfile", 65);
-	// msgget creates a message queue
-	// and returns identifier
-	msgid = msgget(key, 0666 | IPC_CREAT);
-	// msgrcv to receive message
-	msgrcv(msgid, &message, sizeof(message), 1, 0);
-	// display the message
-	printf("Data Received is : %s \n",
-			message.mesg_text);
-
-	// to destroy the message queue
-	msgctl(msgid, IPC_RMID, NULL);
-	return 0;
+key = ftok("progfile", 65);
+// msgget creates a message queue
+// and returns identifier
+msgid = msgget(key, 0666 | IPC_CREAT);
+// msgrcv to receive message
+msgrcv(msgid, &message, sizeof(message), 1, 0);
+// display the message
+printf("Data Received is : %s \n",message.mesg_text);
+// to destroy the message queue
+msgctl(msgid, IPC_RMID, NULL);
+return 0;
 }
-~~~
+```
+
+### WRITER C
+
+```
+// C Program for Message Queue (Writer Process) 
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+// structure for message queue
+struct mesg_buffer {
+long mesg_type;
+char mesg_text[100];
+} message;
+int main()
+{ key_t key;
+int msgid;
+// ftok to generate unique key
+key = ftok("progfile", 65);
+// msgget creates a message queue
+// and returns identifier
+msgid = msgget(key, 0666 | IPC_CREAT);
+message.mesg_type = 1;
+printf("Write Data : ");
+gets(message.mesg_text);
+// msgsnd to send message
+msgsnd(msgid, &message, sizeof(message), 0);
+// display the message
+printf("Data send is : %s \n", message.mesg_text);
+return 0;
+}
+```
+
+
 ## OUTPUT
 
-![Screenshot 2024-09-27 152411](https://github.com/user-attachments/assets/468b8ae4-e7a4-47c6-94f8-240ca4cc8112)
-
+![Screenshot 2024-10-01 085516](https://github.com/user-attachments/assets/c6c92cf9-f58b-4054-887e-5bcb1109d6b4)
 
 
 
